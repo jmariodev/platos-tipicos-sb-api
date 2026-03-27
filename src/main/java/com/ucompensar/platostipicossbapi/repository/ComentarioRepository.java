@@ -1,0 +1,9 @@
+package com.ucompensar.platostipicossbapi.repository;
+
+import com.ucompensar.platostipicossbapi.entity.Comentario;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface ComentarioRepository extends JpaRepository<Comentario, Long> {
+    List<Comentario> findByPlatoId(Long platoId);
+}
