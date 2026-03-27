@@ -1,5 +1,7 @@
 package com.ucompensar.platostipicossbapi.service;
 
+import com.ucompensar.platostipicossbapi.dto.LoginRequestDto;
+import com.ucompensar.platostipicossbapi.dto.LoginResponseDto;
 import com.ucompensar.platostipicossbapi.dto.UsuarioDto;
 import com.ucompensar.platostipicossbapi.dto.UsuarioSaveDto;
 import com.ucompensar.platostipicossbapi.entity.Rol;
@@ -36,7 +38,6 @@ public class UsuarioService {
 
     public UsuarioDto save(UsuarioSaveDto usuarioDto) {
         Usuario usuario = usuarioDto.toEntity();
-
         usuario.setContrasena(passwordEncoder.encode(usuarioDto.getContrasena()));
         
         List<Rol> roles = rolRepository.findAllById(usuarioDto.getRolesIds());
@@ -56,7 +57,6 @@ public class UsuarioService {
         usuario.setUsuario(usuarioDto.getUsuario());
         usuario.setEstado(usuarioDto.isEstado());
         
-        // Si se envía una nueva contraseña, se encripta
         if (usuarioDto.getContrasena() != null && !usuarioDto.getContrasena().isBlank()) {
             usuario.setContrasena(passwordEncoder.encode(usuarioDto.getContrasena()));
         }
@@ -67,6 +67,24 @@ public class UsuarioService {
         }
 
         return UsuarioDto.toDto(usuarioRepository.save(usuario));
+    }
+
+    public LoginResponseDto login(LoginRequestDto loginRequest) {
+        Usuario usuario = usuarioRepository.findByUsuario(loginRequest.getUsuario())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        if (!passwordEncoder.matches(loginRequest.getContrasena(), usuario.getContrasena())) {
+            throw new RuntimeException("Contraseña incorrecta");
+        }
+
+        if (!usuario.isEstado()) {
+            throw new RuntimeException("El usuario se encuentra inactivo");
+        }
+
+        return LoginResponseDto.builder()
+                .mensaje("Login exitoso")
+                .usuario(UsuarioDto.toDto(usuario))
+                .build();
     }
 
     public void delete(Long id) {
