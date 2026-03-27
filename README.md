@@ -22,12 +22,16 @@ Puedes consumir la API utilizando el **Host** de tu preferencia (Local o Producc
 
 | Entidad | Endpoint | Descripción |
 | :--- | :--- | :--- |
+| **Auth** | `/auth/login` | Inicio de sesión con validación BCrypt. |
 | **Platos** | `/plato` | Gestión completa de platos típicos, galería e ingredientes. |
-| **Usuarios** | `/usuario` | Administración de usuarios y roles (BCrypt). |
-| **Regiones** | `/region` | Catálogo de regiones geográficas. |
+| **Usuarios** | `/usuario` | Administración de usuarios y sus estados. |
+| **Comentarios** | `/comentario` | Feedback de usuarios por plato. |
+| **Regiones** | `/region` | Catálogo de regiones geográficas de Colombia. |
 | **Departamentos** | `/departamento` | Departamentos asociados a regiones. |
 | **Categorías** | `/categoria` | Clasificación de platos (Sopas, Fritos, etc). |
 | **Ingredientes** | `/ingrediente` | Maestro de ingredientes para selección múltiple. |
+| **Galería** | `/galeria` | Gestión independiente de imágenes de platos. |
+| **Roles** | `/rol` | Listado de roles disponibles (ADMIN, USER). |
 
 ---
 
@@ -44,21 +48,17 @@ Puedes consumir la API utilizando el **Host** de tu preferencia (Local o Producc
 
 ## 📖 Guía de Uso Rápido
 
-### Documentación Detallada
-Para ver ejemplos de JSON, parámetros de entrada (`SaveDto`) y formatos de respuesta, consulta nuestra guía técnica:
-👉 **[Ver Documentación Técnica de Endpoints]()**
-
 ### Ejemplo de Consumo (CURL)
 Sustituye `${HOST}` por tu URL base:
 
 ```bash
+# Inicio de sesión
+curl -X POST ${HOST}/api/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"usuario": "admin", "contrasena": "admin123"}'
+
 # Listar todos los platos
 curl -X GET ${HOST}/api/plato
-
-# Crear un nuevo ingrediente
-curl -X POST ${HOST}/api/ingrediente \
-     -H "Content-Type: application/json" \
-     -d '{"nombre": "Ajo"}'
 ```
 
 ---
