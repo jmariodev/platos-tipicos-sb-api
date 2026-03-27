@@ -5,6 +5,9 @@ Este documento contiene la especificación de los endpoints disponibles en la AP
 ## Índice
 1. [Usuarios](#1-usuarios)
 2. [Roles](#2-roles)
+3. [Regiones](#3-regiones)
+4. [Departamentos](#4-departamentos)
+5. [Categorías](#5-categorías)
 
 ---
 
@@ -12,96 +15,68 @@ Este documento contiene la especificación de los endpoints disponibles en la AP
 Base URL: `/api/usuario`
 
 ### 1.1 Obtener todos los usuarios
-Obtiene la lista completa de usuarios registrados.
-
 *   **URL:** `/api/usuario`
 *   **Método:** `GET`
-*   **Respuesta Exitosa (200 OK):**
-    ```json
-    [
-      {
-        "id": 1,
-        "nombre": "Juan Perez",
-        "usuario": "jperez",
-        "estado": true,
-        "roles": [
-          { "id": 1, "nombre": "ADMIN" }
-        ]
-      }
-    ]
-    ```
+*   **Respuesta Exitosa (200 OK):** Lista de `UsuarioDto`.
 
 ### 1.2 Obtener usuario por ID
-Obtiene los detalles de un usuario específico.
-
 *   **URL:** `/api/usuario/{id}`
 *   **Método:** `GET`
-*   **Parámetros:** `id` (Long)
-*   **Respuesta Exitosa (200 OK):**
-    ```json
-    {
-      "id": 1,
-      "nombre": "Juan Perez",
-      "usuario": "jperez",
-      "estado": true,
-      "roles": [
-        { "id": 1, "nombre": "ADMIN" }
-      ]
-    }
-    ```
-*   **Error (404 Not Found):** `{"mensaje": "Usuario con ID {id} no encontrado"}`
+*   **Respuesta Exitosa (200 OK):** `UsuarioDto`.
 
 ### 1.3 Crear nuevo usuario
-Registra un nuevo usuario en el sistema. La contraseña se encripta automáticamente usando BCrypt.
-
 *   **URL:** `/api/usuario`
 *   **Método:** `POST`
-*   **Cuerpo de la Petición:**
-    ```json
-    {
-      "nombre": "Juan Perez",
-      "usuario": "jperez",
-      "contrasena": "password123",
-      "estado": true,
-      "rolesIds": [1, 2]
-    }
-    ```
-*   **Respuesta Exitosa (201 Created):** Retorna el objeto `UsuarioDto` creado (sin el campo contrasena).
-*   **Error de Validación (400 Bad Request):**
-    ```json
-    {
-        "nombre": "El nombre es obligatorio",
-        "usuario": "El usuario es obligatorio",
-        "contrasena": "La contraseña es obligatoria",
-        "rolesIds": "Debe asignar al menos un rol"
-    }
-    ```
-
-### 1.4 Actualizar usuario
-Modifica los datos de un usuario existente. Si se envía una contraseña, se re-encripta.
-
-*   **URL:** `/api/usuario/{id}`
-*   **Método:** `PUT`
-*   **Cuerpo de la Petición:** (Igual al de creación)
-*   **Respuesta Exitosa (200 OK):** Retorna el objeto `UsuarioDto` actualizado.
-*   **Error (404 Not Found):** `{"mensaje": "Usuario con ID {id} no encontrado"}`
-
-### 1.5 Eliminar usuario
-Elimina un usuario de forma permanente.
-
-*   **URL:** `/api/usuario/{id}`
-*   **Método:** `DELETE`
-*   **Respuesta Exitosa (204 No Content):** (Sin cuerpo)
-*   **Error (404 Not Found):** `{"mensaje": "Usuario con ID {id} no encontrado"}`
+*   **Cuerpo (UsuarioSaveDto):** `nombre`, `usuario`, `contrasena`, `estado`, `rolesIds[]`.
+*   **Respuesta Exitosa (201 Created):** `UsuarioDto`.
 
 ---
 
 ## 2. Roles (Manual/DB)
-*Actualmente gestionados directamente en la base de datos o mediante scripts SQL.*
-
-### Roles Disponibles
 *   **ID 1:** `ADMIN`
 *   **ID 2:** `USER`
+
+---
+
+## 3. Regiones
+Base URL: `/api/region`
+
+### 3.1 Obtener todas las regiones
+*   **URL:** `/api/region`
+*   **Método:** `GET`
+
+### 3.2 Crear Región
+*   **URL:** `/api/region`
+*   **Método:** `POST`
+*   **Cuerpo (RegionSaveDto):** `nombre`, `descripcion`, `imagen`, `color`.
+
+---
+
+## 4. Departamentos
+Base URL: `/api/departamento`
+
+### 4.1 Obtener todos los departamentos
+*   **URL:** `/api/departamento`
+*   **Método:** `GET`
+
+### 4.2 Crear Departamento
+*   **URL:** `/api/departamento`
+*   **Método:** `POST`
+*   **Cuerpo (DepartamentoSaveDto):** `nombre`, `regionId`.
+
+---
+
+## 5. Categorías
+Base URL: `/api/categoria`
+
+### 5.1 Obtener todas las categorías
+*   **URL:** `/api/categoria`
+*   **Método:** `GET`
+
+### 5.2 Crear Categoría
+*   **URL:** `/api/categoria`
+*   **Método:** `POST`
+*   **Cuerpo (CategoriaSaveDto):** `nombre`.
 
 ---
 *Última actualización: 2025-05-22*
