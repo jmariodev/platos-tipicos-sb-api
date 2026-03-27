@@ -8,75 +8,54 @@ Este documento contiene la especificación de los endpoints disponibles en la AP
 3. [Regiones](#3-regiones)
 4. [Departamentos](#4-departamentos)
 5. [Categorías](#5-categorías)
+6. [Ingredientes (Maestro)](#6-ingredientes-maestro)
+7. [Platos](#7-platos)
 
 ---
 
 ## 1. Usuarios
 Base URL: `/api/usuario`
-
-### 1.1 Obtener todos los usuarios
-*   **URL:** `/api/usuario`
-*   **Método:** `GET`
-*   **Respuesta Exitosa (200 OK):** Lista de `UsuarioDto`.
-
-### 1.2 Obtener usuario por ID
-*   **URL:** `/api/usuario/{id}`
-*   **Método:** `GET`
-*   **Respuesta Exitosa (200 OK):** `UsuarioDto`.
-
-### 1.3 Crear nuevo usuario
-*   **URL:** `/api/usuario`
-*   **Método:** `POST`
-*   **Cuerpo (UsuarioSaveDto):** `nombre`, `usuario`, `contrasena`, `estado`, `rolesIds[]`.
-*   **Respuesta Exitosa (201 Created):** `UsuarioDto`.
+... (documentación anterior)
 
 ---
 
-## 2. Roles (Manual/DB)
-*   **ID 1:** `ADMIN`
-*   **ID 2:** `USER`
+## 6. Ingredientes (Maestro)
+Base URL: `/api/ingrediente`
+
+### 6.1 Crear Ingrediente
+*   **URL:** `/api/ingrediente`
+*   **Método:** `POST`
+*   **Cuerpo:** `{"nombre": "Cebolla"}`
 
 ---
 
-## 3. Regiones
-Base URL: `/api/region`
+## 7. Platos
+Base URL: `/api/plato`
 
-### 3.1 Obtener todas las regiones
-*   **URL:** `/api/region`
-*   **Método:** `GET`
-
-### 3.2 Crear Región
-*   **URL:** `/api/region`
+### 7.1 Crear Plato (Incluye Galería e Ingredientes)
+*   **URL:** `/api/plato`
 *   **Método:** `POST`
-*   **Cuerpo (RegionSaveDto):** `nombre`, `descripcion`, `imagen`, `color`.
-
----
-
-## 4. Departamentos
-Base URL: `/api/departamento`
-
-### 4.1 Obtener todos los departamentos
-*   **URL:** `/api/departamento`
-*   **Método:** `GET`
-
-### 4.2 Crear Departamento
-*   **URL:** `/api/departamento`
-*   **Método:** `POST`
-*   **Cuerpo (DepartamentoSaveDto):** `nombre`, `regionId`.
-
----
-
-## 5. Categorías
-Base URL: `/api/categoria`
-
-### 5.1 Obtener todas las categorías
-*   **URL:** `/api/categoria`
-*   **Método:** `GET`
-
-### 5.2 Crear Categoría
-*   **URL:** `/api/categoria`
-*   **Método:** `POST`
-*   **Cuerpo (CategoriaSaveDto):** `nombre`.
+*   **Cuerpo (JSON Example):**
+    ```json
+    {
+      "nombre": "Bandeja Paisa",
+      "porciones": 1,
+      "destacado": true,
+      "tiempoPreparacion": 60,
+      "datoCurioso": "Plato insignia de Antioquia",
+      "historia": "...",
+      "descripcion": "...",
+      "categoriaId": 1,
+      "departamentoId": 1,
+      "usuarioId": 1,
+      "ingredientesIds": [1, 2, 3],
+      "galeria": [
+        { "url": "http://image.com/1.jpg", "esPrincipal": true },
+        { "url": "http://image.com/2.jpg", "esPrincipal": false }
+      ]
+    }
+    ```
+*   **Respuesta Exitosa (201 Created):** Retorna `PlatoDto` con todas sus relaciones y galería.
 
 ---
 *Última actualización: 2025-05-22*
