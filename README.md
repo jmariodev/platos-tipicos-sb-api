@@ -16,7 +16,7 @@ Puedes consumir la API utilizando el **Host** de tu preferencia (Local o Producc
 
 ### 🔗 Hosts Disponibles
 - **Local**: `http://localhost:8080`
-- **Producción (Render)**: `PON_AQUI_TU_ENDPOINT_DE_RENDER`
+- **Producción (Render)**: `https://platos-tipicos-sb-api.onrender.com`
 
 ### 🛣️ Rutas Principales (Base: `/api`)
 
