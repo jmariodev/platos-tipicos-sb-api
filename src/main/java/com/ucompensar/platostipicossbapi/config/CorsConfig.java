@@ -16,6 +16,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
+                        .allowedOrigins()
                         .allowedOriginPatterns("*") // Allows request from any origin
                         .allowedMethods("GET", "POST", "PUT", "DELETE") // Allows specified HTTP methods
                         .allowedHeaders() // Allows all headers
