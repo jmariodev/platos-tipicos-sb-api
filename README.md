@@ -10,15 +10,17 @@ API REST profesional para la gestión y consulta del patrimonio gastronómico de
 
 ---
 
+## 🌍 Despliegue y Pruebas
+
+La API se encuentra desplegada en la nube utilizando **Render**. Puedes interactuar con ella y probar todos los endpoints a través de la documentación funcional:
+
+🚀 **Prueba la API aquí (Bruno Doc):** [https://bruno-platos-tipicos-sb-api-doc.onrender.com/](https://bruno-platos-tipicos-sb-api-doc.onrender.com/)
+
+🚀 **Base URL (Production):** `https://platos-tipicos-sb-api.onrender.com`
+
+---
+
 ## 🚀 Puntos de Acceso (Endpoints)
-
-Puedes consumir la API utilizando el **Host** de tu preferencia (Local o Producción).
-
-### 🔗 Hosts Disponibles
-- **Local**: `http://localhost:8080`
-- **Producción (Render)**: `https://platos-tipicos-sb-api.onrender.com`
-
-### 🛣️ Rutas Principales (Base: `/api`)
 
 | Entidad | Endpoint | Descripción |
 | :--- | :--- | :--- |
@@ -39,27 +41,10 @@ Puedes consumir la API utilizando el **Host** de tu preferencia (Local o Producc
 
 - **Core**: Java 21 & Spring Boot 4.0.5
 - **Seguridad**: Spring Security + BCrypt Password Encoding
+- **CORS**: Configuración global habilitada para consumo multiplataforma.
 - **Datos**: Spring Data JPA + Hibernate (PostgreSQL)
-- **Validación**: Jakarta Bean Validation
-- **Productividad**: Lombok & Maven
 - **DevOps**: Docker & Multi-stage builds
-
----
-
-## 📖 Guía de Uso Rápido
-
-### Ejemplo de Consumo (CURL)
-Sustituye `${HOST}` por tu URL base:
-
-```bash
-# Inicio de sesión
-curl -X POST ${HOST}/api/auth/login \
-     -H "Content-Type: application/json" \
-     -d '{"usuario": "admin", "contrasena": "admin123"}'
-
-# Listar todos los platos
-curl -X GET ${HOST}/api/plato
-```
+- **Cloud**: Render
 
 ---
 
