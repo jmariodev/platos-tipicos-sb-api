@@ -16,11 +16,11 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(@NonNull CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins()
-                        .allowedOriginPatterns("*") // Allows request from any origin
-                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Allows specified HTTP methods
-                        .allowedHeaders() // Allows all headers
-                        .allowCredentials(true); // Allows credentials (e.g., cookies)
+                        .allowedOriginPatterns("*") // Allowed compatibility all origin
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") //Allowed all methods
+                        .allowedHeaders("*") // Allowed all headers (Content-Type, Authorization, etc.)
+//                        .exposedHeaders("Authorization")  pendent for include jwt
+                        .allowCredentials(true);
             }
         };
     }
